@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'teacher',
     'opening',
     'variables',
+    'tags',
 
 
 #necessary for django allauth

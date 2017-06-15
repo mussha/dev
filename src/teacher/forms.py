@@ -434,6 +434,7 @@ class SearchTeacherForm(forms.ModelForm):
         self.helper = FormHelper(self)
         # self.helper.form_id = 'test'
         self.helper.form_method = 'get'
+        self.helper.form_id = 'search-teachers-form'
         # self.helper.form_action = reverse('Home')
         # self.helper.add_input(Submit('submit', value='Refresh', css_class='col-sm-4 col-sm-offset-1'))
         # reset = Reset('reset', 'Reset', css_class='col-sm-4 col-sm-offset-1')
@@ -441,7 +442,7 @@ class SearchTeacherForm(forms.ModelForm):
         # reset = Submit('reset', 'Reset', css_class='col-sm-4 col-sm-offset-1')
         # self.helper.add_input(reset)
         # self.helper.form_class = 'form-horizontal'
-        # self.helper.form_class = 'search'
+        self.helper.form_class = 'search'
 
         self.helper.layout = Layout(
 
@@ -464,6 +465,9 @@ class SearchTeacherForm(forms.ModelForm):
 
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><h4><label>Level</label></h4></div>"""),
                     Div(InlineRadios('level',css_class=''), css_class='col-xs-12 col-md-12 col-lg-12'),
+                    ButtonHolder(
+                        HTML('<a class="btn btn-default col-xs-4 col-xs-offset-4 extra-top-15" href="{% url "TeacherList" %}">Reset</a>'),
+                    ),
                     ),
 
                 Tab('Educational/Expertise',
@@ -472,6 +476,9 @@ class SearchTeacherForm(forms.ModelForm):
                     Div(InlineCheckboxes('educational_level'), css_class='col-xs-12 col-md-12 col-lg-12'),
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><span><p><b>Tutors current role</b></p></span></div>"""),
                     Div(InlineCheckboxes('expertise_type'), css_class='col-xs-12 col-md-12 col-lg-12'),
+                    ButtonHolder(
+                        HTML('<a class="btn btn-default col-xs-4 col-xs-offset-4 extra-top-15" href="{% url "TeacherList" %}">Reset</a>'),
+                    ),
                     ),
 
                 Tab('Region',
@@ -491,7 +498,9 @@ class SearchTeacherForm(forms.ModelForm):
 
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><span><p><b>West locations</b></p></span></div>"""),
                     Div(InlineCheckboxes('region_4'), css_class='col-xs-12 col-md-12 col-lg-12'),
-
+                    ButtonHolder(
+                        HTML('<a class="btn btn-default col-xs-4 col-xs-offset-4 extra-top-15" href="{% url "TeacherList" %}">Reset</a>'),
+                    ),
 
                     ),
 
@@ -503,15 +512,18 @@ class SearchTeacherForm(forms.ModelForm):
                     Div(Field('search'), css_class='col-xs-6 col-md-3'),
                     HTML("""<div class="col-xs-6 col-md-3"><b>Group Tuition</b></div>"""),
                     Div(Field('group_tuition'), css_class='col-xs-6 col-md-3'),
-                    
+                    ButtonHolder(
+                        Submit('submit', 'Refresh', css_class='col-xs-4 col-xs-offset-1 extra-top-15'),
+                        HTML('<a class="btn btn-default col-xs-4 col-xs-offset-1 extra-top-15" href="{% url "TeacherList" %}">Reset</a>'),
+                    ),
                     ),
 
             ),
 
-            ButtonHolder(
-                Submit('submit', 'Refresh', css_class='col-xs-4 col-xs-offset-1'),
-                HTML('<a class="btn btn-default col-xs-4 col-xs-offset-1" href="{% url "TeacherList" %}">Reset</a>'),
-            ),
+            # ButtonHolder(
+            #     # Submit('submit', 'Refresh', css_class='col-xs-4 col-xs-offset-1'),
+            #     # HTML('<a class="btn btn-default col-xs-4 col-xs-offset-1" href="{% url "TeacherList" %}">Reset</a>'),
+            # ),
         )
 
     subject_1 = forms.ModelMultipleChoiceField(
