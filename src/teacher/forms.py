@@ -455,13 +455,13 @@ class SearchTeacherForm(forms.ModelForm):
                     # HTML("""<br>test<br>"""),
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><h4><label>Subject</label></h4></div>"""),
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><span><p><b>Languages</b></p></span></div>"""),
-                    Div(InlineRadios('subject_1'), css_class='col-xs-12 col-md-12 col-lg-12'),
+                    Div(Field('subject_1'), css_class='col-xs-12 col-md-12 col-lg-12'),
 
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><span><p><b>Math & Sciences</b></p></span></div>"""),
-                    Div(InlineRadios('subject_2'), css_class='col-xs-12 col-md-12 col-lg-12'),
+                    Div(Field('subject_2'), css_class='col-xs-12 col-md-12 col-lg-12'),
 
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><span><p><b>Arts, Humanities & Others</b></p></span></div>"""),
-                    Div(InlineRadios('subject_3'), css_class='col-xs-12 col-md-12 col-lg-12'),
+                    Div(Field('subject_3'), css_class='col-xs-12 col-md-12 col-lg-12'),
 
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><h4><label>Level</label></h4></div>"""),
                     Div(InlineRadios('level',css_class=''), css_class='col-xs-12 col-md-12 col-lg-12'),
@@ -526,21 +526,21 @@ class SearchTeacherForm(forms.ModelForm):
             # ),
         )
 
-    subject_1 = forms.ModelMultipleChoiceField(
-        required=True,
-        widget=forms.CheckboxSelectMultiple(),
+    subject_1 = forms.ModelChoiceField(
+        # required=True,
+        # widget=forms.CheckboxSelectMultiple(),
         queryset=Subject_Expertise.objects.filter(description='Languages'),
         label=""
     )
-    subject_2 = forms.ModelMultipleChoiceField(
-        required=True,
-        widget=forms.CheckboxSelectMultiple(),
+    subject_2 = forms.ModelChoiceField(
+        # required=True,
+        # widget=forms.CheckboxSelectMultiple(),
         queryset=Subject_Expertise.objects.filter(description='Math & Sciences'),
         label=""
     )
-    subject_3 = forms.ModelMultipleChoiceField(
-        required=True,
-        widget=forms.CheckboxSelectMultiple(),
+    subject_3 = forms.ModelChoiceField(
+        # required=True,
+        # widget=forms.CheckboxSelectMultiple(),
         queryset=Subject_Expertise.objects.filter(description='Arts, Humanities & Others'),
         label=""
     )

@@ -61,20 +61,15 @@ img {
 {% block content %}
 <script>
     function saveActiveTab() {
-        $('.nav-tabs a').click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        });
-
         // store the currently selected tab in the hash value
         $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
-            var id = $(e.target).attr("href").substr(1);
+            var id = $(e.target).attr("href") + '_';
             window.location.hash = id;
         });
 
         // on load of the page: switch to the currently selected tab
         var hash = window.location.hash;
-        $('.nav-tabs a[href="' + hash + '"]').tab('show');
+        $('.nav-tabs a[href="' + hash.slice(0, -1) + '"]').tab('show');
     }
 
     function refreshSearchResults(form) {
@@ -87,34 +82,42 @@ img {
     window.onload = function () {
         saveActiveTab();
 
-        $( "#div_id_subject_1 label" ).on( "click", function() {
-          $( "#div_id_subject_2 input" ).each(function() {
-            $( this ).prop( "checked", false );
-          });
-          $( "#div_id_subject_3 input" ).each(function() {
-            $( this ).prop( "checked", false );
-          });
+        $("[id^=id_subject]").on( "change", function () {
+          var subjectSelects = $("[id^=id_subject]").not(this);
+            subjectSelects.val( "" );
         });
-        $( "#div_id_subject_2 label" ).on( "click", function() {
-          $( "#div_id_subject_1 input" ).each(function() {
-            $( this ).prop( "checked", false );
-          });
-          $( "#div_id_subject_3 input" ).each(function() {
-            $( this ).prop( "checked", false );
-          });
-        });
-        $( "#div_id_subject_3 label" ).on( "click", function() {
-          $( "#div_id_subject_1 input" ).each(function() {
-            $( this ).prop( "checked", false );
-          });
-          $( "#div_id_subject_2 input" ).each(function() {
-            $( this ).prop( "checked", false );
-          });
-        });
+
+
+{#        $( "#div_id_subject_1 label" ).on( "click", function() {#}
+{#          $( "#div_id_subject_2 input" ).each(function() {#}
+{#            $( this ).prop( "checked", false );#}
+{#          });#}
+{#          $( "#div_id_subject_3 input" ).each(function() {#}
+{#            $( this ).prop( "checked", false );#}
+{#          });#}
+{#        });#}
+{#        $( "#div_id_subject_2 label" ).on( "click", function() {#}
+{#          $( "#div_id_subject_1 input" ).each(function() {#}
+{#            $( this ).prop( "checked", false );#}
+{#          });#}
+{#          $( "#div_id_subject_3 input" ).each(function() {#}
+{#            $( this ).prop( "checked", false );#}
+{#          });#}
+{#        });#}
+{#        $( "#div_id_subject_3 label" ).on( "click", function() {#}
+{#          $( "#div_id_subject_1 input" ).each(function() {#}
+{#            $( this ).prop( "checked", false );#}
+{#          });#}
+{#          $( "#div_id_subject_2 input" ).each(function() {#}
+{#            $( this ).prop( "checked", false );#}
+{#          });#}
+{#        });#}
 
         // ajax reload search results on radios/checkboxes/number input(years of experience, salary) change
         $("#search-teachers-form input[type=checkbox], " +
             "#search-teachers-form input[type=radio]," +
+                // adding selects
+            "#search-teachers-form select," +
             "#search-teachers-form input[type=number]").on("keyup change", function () {
             var form = $("#search-teachers-form");
             refreshSearchResults(form);
@@ -127,15 +130,25 @@ img {
         //    refreshSearchResults(form);
         //});
 
+        // comment this to reload page on hitting 'Refresh'
+        $("#search-teachers-form input[type=submit]").on('click', function (e) {
+            e.preventDefault();
+            var form = $("#search-teachers-form");
+            refreshSearchResults(form);
+        });
+
          // ajax reset search results by Reset btn
         $("#search-teachers-form a.btn").on("click", function (e) {
             $(this).blur();
+
+            if (history.pushState) {
+                window.history.replaceState(null, "", location.href.split("?")[0]);
+            }
+
             e.preventDefault();
-            var activeTabId = $(".tab-pane.active a[data-toggle='tab']").attr('href');
             $('#search-teachers-form').load(location.pathname + ' #search-teachers-form', function(){
                 $(this).children().unwrap();
                 window.onload();
-                $('.nav-tabs a[href=' + activeTabId + ']').tab('show');
                 var form = $("#search-teachers-form");
                 refreshSearchResults(form);
             });
