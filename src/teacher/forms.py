@@ -434,6 +434,7 @@ class SearchTeacherForm(forms.ModelForm):
         self.helper = FormHelper(self)
         # self.helper.form_id = 'test'
         self.helper.form_method = 'get'
+        self.helper.form_id = 'search-teachers-form'
         # self.helper.form_action = reverse('Home')
         # self.helper.add_input(Submit('submit', value='Refresh', css_class='col-sm-4 col-sm-offset-1'))
         # reset = Reset('reset', 'Reset', css_class='col-sm-4 col-sm-offset-1')
@@ -442,6 +443,7 @@ class SearchTeacherForm(forms.ModelForm):
         # self.helper.add_input(reset)
         # self.helper.form_class = 'form-horizontal'
         # self.helper.form_class = 'search'
+        self.helper.form_class = 'search'
 
         self.helper.layout = Layout(
 
@@ -454,16 +456,19 @@ class SearchTeacherForm(forms.ModelForm):
                     # HTML("""<br>test<br>"""),
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><h4><label>Subject</label></h4></div>"""),
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><span><p><b>Languages</b></p></span></div>"""),
-                    Div(InlineRadios('subject_1'), css_class='col-xs-12 col-md-12 col-lg-12'),
+                    Div(Field('subject_1'), css_class='col-xs-12 col-md-12 col-lg-12'),
 
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><span><p><b>Math & Sciences</b></p></span></div>"""),
-                    Div(InlineRadios('subject_2'), css_class='col-xs-12 col-md-12 col-lg-12'),
+                    Div(Field('subject_2'), css_class='col-xs-12 col-md-12 col-lg-12'),
 
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><span><p><b>Arts, Humanities & Others</b></p></span></div>"""),
-                    Div(InlineRadios('subject_3'), css_class='col-xs-12 col-md-12 col-lg-12'),
+                    Div(Field('subject_3'), css_class='col-xs-12 col-md-12 col-lg-12'),
 
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><h4><label>Level</label></h4></div>"""),
                     Div(InlineRadios('level',css_class=''), css_class='col-xs-12 col-md-12 col-lg-12'),
+                    ButtonHolder(
+                        HTML('<a class="btn btn-default col-xs-4 col-xs-offset-4 extra-top-15" href="{% url "TeacherList" %}">Reset</a>'),
+                    ),
                     ),
 
                 Tab('Educational/Expertise',
@@ -472,6 +477,9 @@ class SearchTeacherForm(forms.ModelForm):
                     Div(InlineCheckboxes('educational_level'), css_class='col-xs-12 col-md-12 col-lg-12'),
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><span><p><b>Tutors current role</b></p></span></div>"""),
                     Div(InlineCheckboxes('expertise_type'), css_class='col-xs-12 col-md-12 col-lg-12'),
+                    ButtonHolder(
+                        HTML('<a class="btn btn-default col-xs-4 col-xs-offset-4 extra-top-15" href="{% url "TeacherList" %}">Reset</a>'),
+                    ),
                     ),
 
                 Tab('Region',
@@ -491,7 +499,9 @@ class SearchTeacherForm(forms.ModelForm):
 
                     HTML("""<div class="col-xs-12 col-md-12 col-lg-12"><span><p><b>West locations</b></p></span></div>"""),
                     Div(InlineCheckboxes('region_4'), css_class='col-xs-12 col-md-12 col-lg-12'),
-
+                    ButtonHolder(
+                        HTML('<a class="btn btn-default col-xs-4 col-xs-offset-4 extra-top-15" href="{% url "TeacherList" %}">Reset</a>'),
+                    ),
 
                     ),
 
@@ -503,39 +513,42 @@ class SearchTeacherForm(forms.ModelForm):
                     Div(Field('search'), css_class='col-xs-6 col-md-3'),
                     HTML("""<div class="col-xs-6 col-md-3"><b>Group Tuition</b></div>"""),
                     Div(Field('group_tuition'), css_class='col-xs-6 col-md-3'),
-                    
+
+                    ButtonHolder(
+                        Submit('submit', 'Refresh', css_class='col-xs-4 col-xs-offset-1 extra-top-15'),
+                        HTML('<a class="btn btn-default col-xs-4 col-xs-offset-1 extra-top-15" href="{% url "TeacherList" %}">Reset</a>'),
+                    ),
                     ),
 
             ),
 
-            ButtonHolder(
-                Submit('submit', 'Refresh', css_class='col-xs-4 col-xs-offset-1'),
-                HTML('<a class="btn btn-default col-xs-4 col-xs-offset-1" href="{% url "TeacherList" %}">Reset</a>'),
-            ),
+            # ButtonHolder(
+            #     Submit('submit', 'Refresh', css_class='col-xs-4 col-xs-offset-1'),
+            #     HTML('<a class="btn btn-default col-xs-4 col-xs-offset-1" href="{% url "TeacherList" %}">Reset</a>'),
+            # ),
         )
 
-    subject_1 = forms.ModelMultipleChoiceField(
-        required=True,
-        widget=forms.CheckboxSelectMultiple(),
+    subject_1 = forms.ModelChoiceField(
+        # required=True,
+        # widget=forms.CheckboxSelectMultiple(),
         queryset=Subject_Expertise.objects.filter(description='Languages'),
         label=""
     )
-    subject_2 = forms.ModelMultipleChoiceField(
-        required=True,
-        widget=forms.CheckboxSelectMultiple(),
+    subject_2 = forms.ModelChoiceField(
+        # required=True,
+        # widget=forms.CheckboxSelectMultiple(),
         queryset=Subject_Expertise.objects.filter(description='Math & Sciences'),
         label=""
     )
-    subject_3 = forms.ModelMultipleChoiceField(
-        required=True,
-        widget=forms.CheckboxSelectMultiple(),
+    subject_3 = forms.ModelChoiceField(
+        # required=True,
+        # widget=forms.CheckboxSelectMultiple(),
         queryset=Subject_Expertise.objects.filter(description='Arts, Humanities & Others'),
         label=""
     )
 
 
     level = forms.ModelMultipleChoiceField(
-        required=True,
         widget=forms.CheckboxSelectMultiple(),
         queryset=Level_Expertise.objects.all(),
         label=""
@@ -583,21 +596,85 @@ class SearchTeacherForm(forms.ModelForm):
         label=""
     )
 
-    minimum_years = forms.IntegerField(
+
+
+    exp_choices = (
+        ('1',  '1'),
+        ('2',  '2'),
+        ('3',  '3'),
+        ('4',  '4'),
+        ('5',  '5'),
+        ('6',  '6'),
+        ('7',  '7'),
+        ('8',  '8'),
+        ('9',  '9'),
+        ('10',  '10'),
+        ('11',  '11'),
+        ('12',  '12'),
+        ('13',  '13'),
+        ('14',  '14'),
+        ('15',  '15'),
+        ('16',  '16'),
+        ('17',  '17'),
+        ('18',  '18'),
+        ('19',  '19'),
+        ('20',  '20')
+    )
+
+
+    minimum_years = forms.ChoiceField(
         required=False,
         initial=0,
-        min_value=0,
-        max_value=20,
+        choices=exp_choices,
         label="Minimum Years of Experience"
     )
 
-    maximum_pay = forms.IntegerField(
+    # minimum_years = forms.IntegerField(
+    #     required=False,
+    #     initial=0,
+    #     min_value=0,
+    #     max_value=20,
+    #     label="Minimum Years of Experience"
+    # )
+
+
+    pay_choices = (
+        ('10',  '10'),
+        ('20',  '20'),
+        ('30',  '30'),
+        ('40',  '40'),
+        ('50',  '50'),
+        ('60',  '60'),
+        ('70',  '70'),
+        ('80',  '80'),
+        ('90',  '90'),
+        ('100',  '100'),
+        ('110',  '110'),
+        ('120',  '120'),
+        ('130',  '130'),
+        ('140',  '140'),
+        ('150',  '150'),
+        ('160',  '160'),
+        ('170',  '170'),
+        ('180',  '180'),
+        ('190',  '190'),
+        ('200',  '200')
+    )
+
+    maximum_pay = forms.ChoiceField(
         required=False,
         initial=120,
-        min_value=10,
-        max_value=300,
-        label="Maxmium Salary per hour"
+        choices=pay_choices,
+        label="Maximium Salary per hour"
     )
+
+    # maximum_pay = forms.IntegerField(
+    #     required=False,
+    #     initial=120,
+    #     min_value=10,
+    #     max_value=300,
+    #     label="Maxmium Salary per hour"
+    # )
 
     group_tuition = forms.BooleanField(
         required=False,

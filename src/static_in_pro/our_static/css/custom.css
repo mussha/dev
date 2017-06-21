@@ -44,3 +44,53 @@
 	margin-left: 0;
 }
 
+
+
+#div_id_level_grp .radio-inline {
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 0;
+}
+
+#div_id_educational_level .checkbox-inline {
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 0;
+}
+
+
+#div_id_expertise_type .checkbox-inline {
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 0;
+}
+
+
+#div_id_region_1 .checkbox-inline {
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 0;
+}
+
+#div_id_region_2 .checkbox-inline {
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 0;
+}
+
+#div_id_region_3 .checkbox-inline {
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 0;
+}
+
+#div_id_region_4 .checkbox-inline {
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 0;
+}
+
+
+.extra-top-15 {
+	margin-top: 15px;
+}

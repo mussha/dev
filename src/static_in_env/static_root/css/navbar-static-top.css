@@ -7,7 +7,7 @@ body {
 .navbar-default {
   border-radius: 0px;
   background-color: #336B87;
-  border-color: #1A5F23;
+/*  border-color: #1A5F23;*/
   position: fixed;
   right: 0;
   left: 0;
@@ -18,10 +18,10 @@ body {
   height: 50px;
   margin-bottom: 20px;
   position: relative; 
-  -webkit-transition: height 0.35s ease;
+/*  -webkit-transition: height 0.35s ease;
   -moz-transition: height 0.35s ease;
   -o-transition: height 0.35s ease;
-  transition: height 0.35s ease;
+  transition: height 0.35s ease;*/
 }
 
 .navbar-fixed-top .navbar-collapse {

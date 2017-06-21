@@ -44,18 +44,18 @@ class StudentCreate(CreateView):
 
         user = self.request.user
 
-        #give free credits
-        usercred = UserCredit.objects.get_or_create(user=user)[0]
-        usercred.credit = creditstart
-        usercred.save()
+        # #give free credits
+        # usercred = UserCredit.objects.get_or_create(user=user)[0]
+        # usercred.credit = creditstart
+        # usercred.save()
 
-        #start an bi account for the user
-        todate = datetime.datetime.now().date()
-        subscription = StudentBISubscription.objects.get_or_create(
-            user=user,
-            subenddate=todate
-            )[0]
-        subscription.save()
+        # #start an bi account for the user
+        # todate = datetime.datetime.now().date()
+        # subscription = StudentBISubscription.objects.get_or_create(
+        #     user=user,
+        #     subenddate=todate
+        #     )[0]
+        # subscription.save()
         return valid_data
 
     def get_success_url(self):

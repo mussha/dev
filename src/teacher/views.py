@@ -313,37 +313,57 @@ class TeacherList(ListView, FormView):
         else:
             subject = subject_3
 
-        #storing word searches in the database
-        try:
-            #only take in queries that are registered as students
-            test = self.request.user.student
-            #if there is a search involved
-            if search:
-                search = search.lower()
-                #get the subject with the subject id
-                if subject:
-                    subject = Subject_Expertise.objects.get(id=subject)
-            else:
-                subject = None
+        # #storing word searches in the database
+        # try:
+        #     #only take in queries that are registered as students
+        #     test = self.request.user.student
+        #     #if there is a search involved
+        #     if search:
+        #         search = search.lower()
+        #         #get the subject with the subject id
+        #         if subject:
+        #             subject = Subject_Expertise.objects.get(id=subject)
+        #     else:
+        #         subject = None
 
-                wordrecord, created = SearchWordTeacherRecord.objects.get_or_create(
-                    user=self.request.user,
-                    word=search,
-                    subject=subject,
-                    # level=level,
-                    )
-        except:
-            pass
+        #         wordrecord, created = SearchWordTeacherRecord.objects.get_or_create(
+        #             user=self.request.user,
+        #             word=search,
+        #             subject=subject,
+        #             # level=level,
+        #             )
+        # except:
+        #     pass
 
 
         #filtering for the required teacher profiles
         try:
-            if subject and level_type:
-                qs = qs.filter(
-                    Q(first_subject=subject, first_level=level_type) |
-                    Q(second_subject=subject, second_level=level_type) |
-                    Q(third_subject=subject, third_level=level_type)
-                ).distinct()
+            # if subject and level_type:
+            #     qs = qs.filter(
+            #         Q(first_subject=subject, first_level=level_type) |
+            #         Q(second_subject=subject, second_level=level_type) |
+            #         Q(third_subject=subject, third_level=level_type)
+            #     ).distinct()
+
+
+            if subject:
+                if level_type:
+                    qs = qs.filter(
+                        Q(first_subject=subject, first_level=level_type) |
+                        Q(second_subject=subject, second_level=level_type) |
+                        Q(third_subject=subject, third_level=level_type)
+                    ).distinct()
+                else:
+                    # to show filtered results when subject is selected and level isn't
+                    qs = qs.filter(
+                        Q(first_subject=subject) |
+                        Q(second_subject=subject) |
+                        Q(third_subject=subject)
+                    ).distinct()
+
+
+
+
 
             if educational_level:
                 qs = qs.filter(educational_level__in=educational_level)

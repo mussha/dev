@@ -20,14 +20,36 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# confidential
-SECRET_KEY = '-r)7(z&shjfsqe(-0ouv$7-lr^5*)0^0vlbc%n3+ss^g1_1=()'
+
+SECRET_KEY = '_*8l#5sz8b@u-4=k(yfgo35e^@)==bom+tacb(&vo!r7b6_+04'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
 ALLOWED_HOSTS = []
 
+
+# necessary for django allauth - this change needs to be cascaded to all the new teachadvisors
+# using gmail
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "Balancedtechsgp@gmail.com"
+EMAIL_MAIN = "Balancedtechsgp"
+EMAIL_HOST_PASSWORD = "fakeready23"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+#not working
+# EMAIL_HOST = "email-smtp.us-west-2.amazonaws.com"
+# EMAIL_HOST_USER = "AKIAIEFHII5IVMU4Q4UQ"
+# EMAIL_MAIN = ""
+# EMAIL_HOST_PASSWORD = "ArkiFP3XqPGNkfbHEOIy3fi0HACn8bInVxjgbyINl22t"
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Application definition
@@ -52,6 +74,13 @@ INSTALLED_APPS = [
     'teacher',
     'opening',
     'variables',
+    # 'messaging',
+    # 'orders',
+    # 'orderreview',
+    # 'billing',
+    # 'mixins',
+    # 'tags',
+    # 'notifications',
 
 
 #necessary for django allauth
@@ -83,9 +112,9 @@ AUTHENTICATION_BACKENDS = (
 # necessary for django allauth
 # ACCOUNT_AUTHENTICATION_METHOD ="username" | "email" | "username_email"
 ACCOUNT_AUTHENTICATION_METHOD ="username_email"
-# ACCOUNT_EMAIL_REQUIRED=True
-# ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
-# ACCOUNT_EMAIL_VERIFICATION ="mandatory"
+ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
+ACCOUNT_EMAIL_VERIFICATION ="mandatory"
 ACCOUNT_UNIQUE_EMAIL =True
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION =True
 LOGIN_REDIRECT_URL='/'
@@ -135,6 +164,18 @@ DATABASES = {
 }
 
 
+# # localhost - need to install postgres under pip install and start a new database in the 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'teachadvisordb',
+#         'USER': 'postgres',
+#         'PASSWORD': '123456',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
 
 
 # Password validation
@@ -169,6 +210,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+TYPE = "local"
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -196,7 +239,12 @@ PROTECTED_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env", "prote
 # print BASE_DIR
 
 
-
+# confidential
+#braintree payment details
+BRAINTREE_PUBLIC = "2p6d25h7hnkmphkf"
+BRAINTREE_PRIVATE = "dfb25d2c59f9cbf58baed0b1484a7904"
+BRAINTREE_MERCHANT_ID = "366ymdm23r3gvjfh"
+BRAINTREE_ENVIRONMENT = "sandbox"
 
 
 
