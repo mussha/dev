@@ -27,3 +27,18 @@ function showFlashMessage(message) {
 	}, 1800);
 
 }
+
+window.onload = function () {
+    $('#navbar.navbar-collapse').on('show.bs.collapse', function () {
+        $("html, body").addClass('no-scroll');
+        $("#navbar-button .icon-bar").addClass('hidden');
+        $("#navbar-button span.close-btn").removeClass('hidden');
+        $("#navbar-button").blur();
+    });
+    $('#navbar.navbar-collapse').on('hide.bs.collapse', function () {
+        $("html, body").removeClass('no-scroll');
+        $("#navbar-button .icon-bar").removeClass('hidden');
+        $("#navbar-button span.close-btn").addClass('hidden');
+        $("#navbar-button").blur();
+    });
+};

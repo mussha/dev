@@ -47,4 +47,27 @@
 .extra-top-15 {
 	margin-top: 15px;
 }
+#navbar-button{
+	width: 44px;
+	height: 34px;
+}
+#navbar-button .close-btn{
+	font-size: 24px!important;
+	line-height: 0!important;
+	color: white!important;
+}
+#navbar-button .close-btn:hover{
+	color: #ddd!important;
+}
+#navbar-button:not(.collapsed) {
+	border: 0!important;
+}
+#navbar-button:not(.collapsed):hover {
+	background-color: transparent!important;
+}
+.no-scroll {
+	margin: 0;
+	height: 100%;
+	overflow: hidden
+}
 
