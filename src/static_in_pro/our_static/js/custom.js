@@ -28,7 +28,7 @@ function showFlashMessage(message) {
 
 }
 
-window.onload = function () {
+$(document).ready(function () {
     $('#navbar.navbar-collapse').on('show.bs.collapse', function () {
         $("html, body").addClass('no-scroll');
         $("#navbar-button .icon-bar").addClass('hidden');
@@ -41,4 +41,4 @@ window.onload = function () {
         $("#navbar-button span.close-btn").addClass('hidden');
         $("#navbar-button").blur();
     });
-};
+});
