@@ -502,7 +502,6 @@ class SearchTeacherForm(forms.ModelForm):
                     ButtonHolder(
                         HTML('<a class="btn btn-default col-xs-4 col-xs-offset-4 extra-top-15" href="{% url "TeacherList" %}">Reset</a>'),
                     ),
-
                     ),
 
                 Tab('Other Details',
@@ -665,7 +664,7 @@ class SearchTeacherForm(forms.ModelForm):
         required=False,
         initial=120,
         choices=pay_choices,
-        label="Maximium Salary per hour"
+        label="Maximum Salary per hour"
     )
 
     # maximum_pay = forms.IntegerField(

@@ -161,12 +161,8 @@
 
                 <a href='{{ request.user.student.get_absolute_url }}' data-action='show-spinner' class='btn btn-primary buttonspace' >Personal Details  <i class="fa fa-user fa-x"></i></a>
 
-                <a href='{% url "FavTeacherList" %}' data-action='show-spinner' class='btn btn-primary buttonspace' > Favorite Tutors  <i class="fa fa-flag fa-x"></i></a>
 
-<!--                 {% if analenddate != "Expired" %}
-                <a href='{% url "StudentChart" %}' data-action='show-spinner' class='btn btn-primary buttonspace' > View Analytics <i class="fa fa-bar-chart fa-x"></i></a>
-                {% endif %}
- -->
+
               </div>
             </div>
 
@@ -177,9 +173,7 @@
 
               <div class="panel-body center">
 
-              <a href='{% url "POpeningList" %}' data-action='show-spinner' class='btn btn-primary buttonspace' >Tuition Jobs</a>
 
-              <a href='{% url "OpeningCreate" %}' data-action='show-spinner' class='btn btn-success buttonspace' >Create a New Tuition Job</a>
 
               </div>
             </div>
