@@ -291,7 +291,7 @@ class TeacherList(ListView, FormView):
         subject_1 = self.request.GET.get("subject_1")
         subject_2 = self.request.GET.get("subject_2")
         subject_3 = self.request.GET.get("subject_3")
-        level_type = self.request.GET.get("level")
+        level_type = self.request.GET.get("level_grp")
         educational_level = self.request.GET.getlist("educational_level")
         expertise_type = self.request.GET.getlist("expertise_type")
         maximum_pay = self.request.GET.get("maximum_pay")
@@ -313,6 +313,20 @@ class TeacherList(ListView, FormView):
         else:
             subject = subject_3
 
+        level = None
+        if level_type:
+            if level_type == "Lower Primary":
+                level = ("1", "2", "3")
+            if level_type == "Higher Primary":
+                level = ("4", "5", "6")
+            if level_type == "Lower Secondary":
+                level = ("7", "8")
+            if level_type == "Higher Secondary":
+                level = ("9", "10")
+            if level_type == "Junior College":
+                level = ("11", "12")
+            if level_type == "University":
+                level = ("14", "15", "16", "17")
         # #storing word searches in the database
         # try:
         #     #only take in queries that are registered as students
@@ -347,11 +361,11 @@ class TeacherList(ListView, FormView):
 
 
             if subject:
-                if level_type:
+                if level:
                     qs = qs.filter(
-                        Q(first_subject=subject, first_level=level_type) |
-                        Q(second_subject=subject, second_level=level_type) |
-                        Q(third_subject=subject, third_level=level_type)
+                        Q(first_subject=subject, first_level=level) |
+                        Q(second_subject=subject, second_level=level) |
+                        Q(third_subject=subject, third_level=level)
                     ).distinct()
                 else:
                     # to show filtered results when subject is selected and level isn't
@@ -360,6 +374,13 @@ class TeacherList(ListView, FormView):
                         Q(second_subject=subject) |
                         Q(third_subject=subject)
                     ).distinct()
+            # to show filtered results when subject isn't selected and level is
+            if level and not subject:
+                qs = qs.filter(
+                    Q(first_level=level) |
+                    Q(second_level=level) |
+                    Q(third_level=level)
+                ).distinct()
 
 
 
@@ -371,7 +392,7 @@ class TeacherList(ListView, FormView):
                 qs = qs.filter(expertise_type__in=expertise_type)
             if minimum_years and not minimum_years == '0':
                 qs = qs.filter(years_of_experience__gte=minimum_years)
-            if maximum_pay and not maximum_pay == '120':
+            if maximum_pay:
                 qs = qs.filter(salary_expectation__lte=maximum_pay)
             if region:
                 qs = qs.filter(region__in=region)

@@ -162,6 +162,7 @@ class OpeningList(ListView, FormView):
         else:
             subject = subject_3
 
+        level = None
         if level_type:
             if level_type == "Lower Primary":
                 level = ("1","2","3")
@@ -180,11 +181,11 @@ class OpeningList(ListView, FormView):
 
 
         try:
-            if subject and level_type:
-                qs = qs.filter(
-                    Q(subject=subject, level__in=level)
-                ).distinct()
-            if minimum_pay and not minimum_pay == '120':
+            if subject:
+                qs = qs.filter(subject=subject)
+            if level:
+                qs = qs.filter(level__in=level)
+            if minimum_pay:
                 qs = qs.filter(salary_range__gte=minimum_pay)
             if region:
                 qs = qs.filter(region__in=region)

@@ -71,7 +71,7 @@
 
 
         // ajax reset search results by Reset btn
-        $("#search-openings-form").on("click", function (e) {
+        $("#search-openings-form a.btn").on("click", function (e) {
             $(this).blur();
 
             if (history.pushState) {
@@ -89,7 +89,7 @@
             });
         })
   };
-  
+
 
 
 

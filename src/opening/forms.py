@@ -227,10 +227,11 @@ class SearchOpeningForm(forms.ModelForm):
 
                 Tab('Keyword',
 					Div(Field('search'), css_class='col-xs-12 col-sm-offset-3 col-sm-6 col-sm-offset-3'),
-                    ButtonHolder(
-                        Submit('submit', 'Search', css_class='col-xs-12 col-sm-offset-4 col-sm-4 col-sm-offset-4')#,
-                        # HTML('<a class="btn btn-default col-xs-4 col-xs-offset-1 extra-top-15" href="{% url "OpeningList" %}">Reset</a>'),
-                    ),
+					ButtonHolder(
+						Submit('submit', 'Refresh', css_class='col-md-4 col-md-offset-1 col-xs-4 col-xs-offset-4 extra-top-15'),
+						HTML(
+							'<a class="btn btn-default col-md-4 col-md-offset-2 col-xs-4 col-xs-offset-4 extra-top-15" href="{% url "TeacherList" %}">Reset</a>'),
+					),
                     ),
 			),
 
@@ -309,6 +310,7 @@ class SearchOpeningForm(forms.ModelForm):
 
 
 	pay_choices = (
+		('', '---'),
 		('10',  '10'),
 		('20',  '20'),
 		('30',  '30'),
@@ -334,7 +336,6 @@ class SearchOpeningForm(forms.ModelForm):
 
 	minimum_pay = forms.ChoiceField(
 		required=False,
-		initial=120,
 		choices=pay_choices,
 		label="Minimum Salary per hour"
 	)
